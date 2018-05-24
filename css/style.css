@@ -1,9 +1,80 @@
-/*
-body {
-    
-    width: 300px;
-    height: 300px;
+#nameList {
+
+}
+
+
+#outer-dropzone {
+    height: 140px;
+  }
+  
+  #inner-dropzone {
+    height: 80px;
+  }
+  
+  .dropzone {
+    background-color: #ccc;
+    border: dashed 4px transparent;
+    border-radius: 4px;
+    margin: 10px auto 30px;
+    padding: 10px;
+    width: 80%;
+    transition: background-color 0.3s;
+  }
+  
+  .drop-active {
+    border-color: #aaa;
+  }
+  
+  .drop-target {
+    background-color: #29e;
+    border-color: #fff;
+    border-style: solid;
+  }
+  
+  .drag-drop {
+    display: inline-block;
+    min-width: 40px;
+    padding: 1em 0.5em;
+  
+    color: #fff;
+    background-color: #29e;
+    border: solid 2px #fff;
+  
+    -webkit-transform: translate(0px, 0px);
+            transform: translate(0px, 0px);
+  
+    transition: background-color 0.3s;
+  }
+  
+  .drag-drop.can-drop {
+    color: #000;
+    background-color: #4e4;
+  }
+
+
+#end1 {
+    width: 700px;
+    height: 700px;
     border: 2px solid red;
     position: absolute;
-    left: 100px;
-}*/
+    left: 200px;
+}
+#end2 {
+    width: 500px;
+    height: 500px;
+    border: 2px solid lightblue;
+    position: absolute;
+    left: 650px;
+}
+#drag-1, #drag-2 {
+    width: 80px;
+    height: 20px;
+    min-height: 3.5em;
+    margin: 5%;
+    background-color: #29e;
+    color: white;
+    border-radius: 0.75em;
+    padding: 5%;
+    -webkit-transform: translate(0px, 0px);
+    transform: translate(0px, 0px);
+}
