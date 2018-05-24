@@ -4,28 +4,59 @@
     <meta charset="UTF-8">
     <title>Drag Drop Demo</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/interact.js/1.2.8/interact.min.js"></script>
+   <!-- 
     <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
-    <script src="scripts/dragAndDrop.js"></script>
+   -->
+   
+ 
+   <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
+   <script src="http://code.jquery.com/jquery-1.11.3.js"></script>
+   <script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 
-    <link rel="stylesheet" type="text/css" href="css/style.css">  
+   <script src="scripts/jquery.ui.rotatable.js"></script>
+   <link rel="stylesheet" href="css/jquery.ui.rotatable.css">
+
+
+
+  
+    
+    
+    <script src="scripts/dragAndDrop.js"></script>
+    
+    <link rel="stylesheet" href="css/style.css">  
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb"
         crossorigin="anonymous">
     
+    	<script type="text/javascript">
+            $(document).ready(function() {
+                var params = {
+                    start: function(event, ui) {
+                        console.log("Rotating started")
+                    },
+                    rotate: function(event, ui) {
+                        if (Math.abs(ui.angle.current > 6)) {
+                        console.log("Rotating " + ui.angle.current)
+                        }
+                    },
+                    stop: function(event, ui) {
+                        console.log("Rotating stopped")
+                    },
+                };
+          
+                $('#target3').resizable().rotatable( {snap: true} );    // resizable lehet nem kell
+                $('#draggable3').draggable()
+            });
+        </script>
+
 </head>
 
 <body>
-<!--
-    <div ondrop="drop(event)" ondragover="allowDrop(event)"> 
-
-        <div id="drag-1" class="draggable" draggable="true" ondragstart="drag(event)">
-            <p> Batman </p>
-        </div>
-        <div id="drag-2" class="draggable" draggable="true" ondragstart="drag(event)">
-            <p> Robin </p>
+    <div id="draggable3">
+        <div id="target3" style="z-index: 1; width: 200px; border: 1px solid #862dde; padding: 20px; padding-right: 4px;">
+            Name XY
         </div>
     </div>
--->
-   
+
     <nav>
         <ul>
             <li><a href="groundFloor.html">Ground Floor</a></li>
@@ -33,24 +64,20 @@
         </ul>
     </nav>
 
-
-    <div id="end1" ondrop="drop(event)" ondragover="allowDrop(event)">
+    <div id="end1" class="dropzone" ondrop="drop(event)" ondragover="allowDrop(event)">
         <p>This is the map</p>
-    
     </div>
 
-    <div id="end2" ondrop="drop(event)" ondragover="allowDrop(event)">
-    </div>
 
     <!-- ezt heggeszteni tovább -->
     <div id="no-drop" class="draggable drag-drop"> Name1 </div>
-
     <div id="yes-drop" class="draggable drag-drop"> Name2 </div>
+    <!--
         <div id="outer-dropzone" class="dropzone">
             #outer-dropzone
-        <div id="inner-dropzone" class="dropzone">#inner-dropzone</div>
-    </div>
-
+            <div id="inner-dropzone" class="dropzone">#inner-dropzone</div>
+        </div>
+        -->
 
     <script>
     // target elements with the "draggable" class
@@ -66,9 +93,9 @@
             },*/
             // enable autoScroll
             autoScroll: true,
-            onstart: function (event) {
+/*            onstart: function (event) {
                 console.log('onstart');
-            },
+            },*/
             // call this function on every dragmove event
             onmove: dragMoveListener,
             // call this function on every dragend event
@@ -87,40 +114,40 @@
 
 // enable draggables to be dropped into this
 interact('.dropzone').dropzone({
-  // only accept elements matching this CSS selector
-  accept: '.draggable',
-  // Require a 75% element overlap for a drop to be possible
-  overlap: 0.75,
+    // only accept elements matching this CSS selector
+    accept: '.draggable',
+    // Require a 75% element overlap for a drop to be possible
+    overlap: 0.75,
 
-  // listen for drop related events:
+    // listen for drop related events:
 
-  ondropactivate: function (event) {
-    // add active dropzone feedback
-    event.target.classList.add('drop-active');
-  },
-  ondragenter: function (event) {
-    var draggableElement = event.relatedTarget,
-        dropzoneElement = event.target;
+    ondropactivate: function (event) {
+        // add active dropzone feedback
+        event.target.classList.add('drop-active');
+    },
+    ondragenter: function (event) {
+        var draggableElement = event.relatedTarget,
+            dropzoneElement = event.target;
 
-    // feedback the possibility of a drop
-    dropzoneElement.classList.add('drop-target');
-    draggableElement.classList.add('can-drop');
-   // draggableElement.textContent = 'Dragged in';
-  },
-  ondragleave: function (event) {
-    // remove the drop feedback style
-    event.target.classList.remove('drop-target');
-    event.relatedTarget.classList.remove('can-drop');
-   // event.relatedTarget.textContent = 'Dragged out';
-  },
-  ondrop: function (event) {
-    event.relatedTarget.textContent = 'Dropped';
-  },
-  ondropdeactivate: function (event) {
-    // remove active dropzone feedback
-    event.target.classList.remove('drop-active');
-    event.target.classList.remove('drop-target');
-  }
+        // feedback the possibility of a drop
+        dropzoneElement.classList.add('drop-target');
+        draggableElement.classList.add('can-drop');
+    // draggableElement.textContent = 'Dragged in';
+    },
+    ondragleave: function (event) {
+        // remove the drop feedback style
+        event.target.classList.remove('drop-target');
+        event.relatedTarget.classList.remove('can-drop');
+    // event.relatedTarget.textContent = 'Dragged out';
+    },
+/*    ondrop: function (event) {
+        event.relatedTarget.textContent = 'Dropped';
+    },*/
+    ondropdeactivate: function (event) {
+        // remove active dropzone feedback
+        event.target.classList.remove('drop-active');
+        event.target.classList.remove('drop-target');
+    }
 });
 
 
