@@ -8,52 +8,53 @@
     <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
    -->
    
- 
-   <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
-   <script src="http://code.jquery.com/jquery-1.11.3.js"></script>
-   <script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+    <script src="http://code.jquery.com/jquery-1.11.3.js"></script>
+    <script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 
-   <script src="scripts/jquery.ui.rotatable.js"></script>
-   <link rel="stylesheet" href="css/jquery.ui.rotatable.css">
-
-
-
-  
-    
-    
+    <script src="scripts/jquery.ui.rotatable.js"></script>
     <script src="scripts/dragAndDrop.js"></script>
     
     <link rel="stylesheet" href="css/style.css">  
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb"
         crossorigin="anonymous">
+    <link rel="stylesheet" href="css/jquery.ui.rotatable.css">
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
     
-    	<script type="text/javascript">
-            $(document).ready(function() {
-                var params = {
-                    start: function(event, ui) {
-                        console.log("Rotating started")
-                    },
-                    rotate: function(event, ui) {
-                        if (Math.abs(ui.angle.current > 6)) {
-                        console.log("Rotating " + ui.angle.current)
-                        }
-                    },
-                    stop: function(event, ui) {
-                        console.log("Rotating stopped")
-                    },
-                };
-          
-                $('#target3').resizable().rotatable( {snap: true} );    // resizable lehet nem kell
-                $('#draggable3').draggable()
-            });
-        </script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            var params = {
+                start: function(event, ui) {
+                    console.log("Rotating started")
+                },
+                rotate: function(event, ui) {
+                    if (Math.abs(ui.angle.current > 6)) {
+                    console.log("Rotating " + ui.angle.current)
+                    }
+                },
+                stop: function(event, ui) {
+                    console.log("Rotating stopped")
+                },
+            };
+        
+            $('#target3').resizable().rotatable( {snap: true} );   // resizable lehet nem kell
+            $('#draggable3').draggable()
 
+            $('#deck').resizable().rotatable( {snap: true} );   // resizable lehet nem kell
+            $('#draggable4').draggable()
+        });
+    </script>
 </head>
 
 <body>
     <div id="draggable3">
         <div id="target3" style="z-index: 1; width: 200px; border: 1px solid #862dde; padding: 20px; padding-right: 4px;">
             Name XY
+        </div>
+    </div>
+
+    <div id="draggable4">
+        <div id="deck" style="z-index: 1; width: 100px; border: 1px solid black; padding: 5px; padding-right: 2px;">
+            DECK
         </div>
     </div>
 
@@ -72,12 +73,6 @@
     <!-- ezt heggeszteni tovább -->
     <div id="no-drop" class="draggable drag-drop"> Name1 </div>
     <div id="yes-drop" class="draggable drag-drop"> Name2 </div>
-    <!--
-        <div id="outer-dropzone" class="dropzone">
-            #outer-dropzone
-            <div id="inner-dropzone" class="dropzone">#inner-dropzone</div>
-        </div>
-        -->
 
     <script>
     // target elements with the "draggable" class
@@ -106,8 +101,6 @@
                     " coords ( " + offset.left + ", " + offset.top + " )" );
                 }),
         });
-
-
 
 /* The dragging code for '.draggable' from the demo above
  * applies to this demo as well so it doesn't have to be repeated. */
