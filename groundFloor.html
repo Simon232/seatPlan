@@ -4,22 +4,21 @@
     <meta charset="UTF-8">
     <title>Drag Drop Demo</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/interact.js/1.2.8/interact.min.js"></script>
-   <!-- 
-    <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
-   -->
-   
-    <script src="http://code.jquery.com/jquery-1.11.3.js"></script>
-    <script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-
-    <script src="scripts/jquery.ui.rotatable.js"></script>
-    <script src="scripts/dragAndDrop.js"></script>
     
+    <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+   <!--
+    <script src="http://code.jquery.com/jquery-1.11.3.js"></script>
+    -->
+    <script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+    <script src="scripts/dragAndDrop.js"></script>
+
     <link rel="stylesheet" href="css/style.css">  
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb"
         crossorigin="anonymous">
     <link rel="stylesheet" href="css/jquery.ui.rotatable.css">
-    <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css"> 
     
+    <script src="scripts/jquery.ui.rotatable.js"></script>
     <script type="text/javascript">
         $(document).ready(function() {
             var params = {
@@ -28,7 +27,7 @@
                 },
                 rotate: function(event, ui) {
                     if (Math.abs(ui.angle.current > 6)) {
-                    console.log("Rotating " + ui.angle.current)
+                        console.log("Rotating " + ui.angle.current)
                     }
                 },
                 stop: function(event, ui) {
@@ -37,27 +36,46 @@
             };
         
             $('#target3').resizable().rotatable( {snap: true} );   // resizable lehet nem kell
-            $('#draggable3').draggable()
-
-            $('#deck').resizable().rotatable( {snap: true} );   // resizable lehet nem kell
-            $('#draggable4').draggable()
+            $('#draggable3').draggable();
+            $('#desk').resizable().rotatable( {snap: true} );   // resizable lehet nem kell
+            $('#draggable4').draggable();
         });
     </script>
 </head>
 
 <body>
+ <!--   
+    <div class="regions" id="container-0">
+        <div class="dragster-region dragster-region--drag-only">
+            <p>Elements cannot be dropped here. They are copied from here.</p>
+            <div class="dragster-block">2.1</div>
+            <div class="dragster-block">2.2</div>
+            <div class="dragster-block">2.3</div>
+        </div>
+
+        <div class="dragster-region">
+            <p>destination</p>
+            <div class="dragster-block">3.1</div>
+            <div class="dragster-block">3.2</div>
+            <div class="dragster-block">3.3</div>
+        </div>
+    </div>
+-->
     <div id="draggable3">
         <div id="target3" style="z-index: 1; width: 200px; border: 1px solid #862dde; padding: 20px; padding-right: 4px;">
             Name XY
         </div>
     </div>
 
-    <div id="draggable4">
-        <div id="deck" style="z-index: 1; width: 100px; border: 1px solid black; padding: 5px; padding-right: 2px;">
-            DECK
+    <div id="draggable4" draggable="true">
+        <div id="desk" style="z-index: 1; width: 100px; border: 1px solid black; padding: 5px; padding-right: 2px;">
+            DESK
         </div>
     </div>
-
+ <!--   
+    <br/>
+    <input type="button" onclick="Clone()" value="Clone desk"/>
+ -->
     <nav>
         <ul>
             <li><a href="groundFloor.html">Ground Floor</a></li>
@@ -68,7 +86,6 @@
     <div id="end1" class="dropzone" ondrop="drop(event)" ondragover="allowDrop(event)">
         <p>This is the map</p>
     </div>
-
 
     <!-- ezt heggeszteni tovább -->
     <div id="no-drop" class="draggable drag-drop"> Name1 </div>
@@ -81,7 +98,7 @@
             // enable inertial throwing
             inertia: true,
             // keep the element within the area of it's parent
-/*            restrict: {
+/*          restrict: {
                 restriction: ["parent", "div#end2"],
                 endOnly: true,
                 elementRect: { top: 0, left: 0, bottom: 1, right: 1 }
@@ -98,7 +115,7 @@
                 var offset = $( this ).offset();
                 event.stopPropagation();
                 console.log( this.tagName +
-                    " coords ( " + offset.left + ", " + offset.top + " )" );
+                    " coords ( " + Math.round(offset.left) + ", " + Math.round(offset.top) + " )" );
                 }),
         });
 
@@ -113,7 +130,6 @@ interact('.dropzone').dropzone({
     overlap: 0.75,
 
     // listen for drop related events:
-
     ondropactivate: function (event) {
         // add active dropzone feedback
         event.target.classList.add('drop-active');
@@ -125,7 +141,6 @@ interact('.dropzone').dropzone({
         // feedback the possibility of a drop
         dropzoneElement.classList.add('drop-target');
         draggableElement.classList.add('can-drop');
-    // draggableElement.textContent = 'Dragged in';
     },
     ondragleave: function (event) {
         // remove the drop feedback style
@@ -144,9 +159,7 @@ interact('.dropzone').dropzone({
 });
 
 
-
     function dragMoveListener (event) {
-//        console.log('dragMoveListener');
         var target = event.target,
             // keep the dragged position in the data-x/data-y attributes
             x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx,
@@ -159,6 +172,7 @@ interact('.dropzone').dropzone({
         target.setAttribute('data-x', x);
         target.setAttribute('data-y', y);
     }
-    </script>
+</script>
+
 </body>
 </html>
