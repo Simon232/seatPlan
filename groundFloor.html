@@ -85,13 +85,13 @@
             Name XY
         </div>
     </div>
-
+-->
     <div id="draggable4" draggable="true">
         <div id="desk" style="z-index: 1; width: 100px; border: 1px solid black; padding: 5px; padding-right: 2px;">
             DESK
         </div>
     </div>
--->    
+    
  <!--    
     <br/>
     <input type="button" onclick="Clone()" value="Clone desk"/>
@@ -171,18 +171,15 @@
     </div>
 
 <!-- Name list -->    
+    <p>Number of Names<br> in the list</p>
     <div class="flex-container">
         <!-- nameLoader.js magic here-->        
     </div>
-
+ 
+    
 
 </div>
 </div>
-
-
-
-
-
 
 
 
@@ -206,8 +203,8 @@
             onend: $( "*", document.body ).click(function( event ) {
                 var offset = $( this ).offset();
                 event.stopPropagation();
-                console.log( this.tagName +
-                    " coords ( " + Math.round(offset.left) + ", " + Math.round(offset.top) + " )" );
+/*                console.log( this.tagName +
+                    " coords ( " + Math.round(offset.left) + ", " + Math.round(offset.top) + " )" );*/
                 }),
         });
 
@@ -220,7 +217,6 @@ interact('.dropzone').dropzone({
     accept: '.draggable',
     // Require a x% element overlap for a drop to be possible
     overlap: 0.75,  
-
     // listen for drop related events:
     ondropactivate: function (event) {
         // add active dropzone feedback
@@ -228,8 +224,7 @@ interact('.dropzone').dropzone({
     },
     ondragenter: function (event) {
         var draggableElement = event.relatedTarget,
-            dropzoneElement = event.target;
-
+            dropzoneElement = event.target;   
         // feedback the possibility of a drop
         dropzoneElement.classList.add('drop-target');
         draggableElement.classList.add('can-drop');
@@ -240,16 +235,18 @@ interact('.dropzone').dropzone({
         event.relatedTarget.classList.remove('can-drop');
     // event.relatedTarget.textContent = 'Dragged out';
     },
-/*    ondrop: function (event) {
-        event.relatedTarget.textContent = 'Dropped';
-    },*/
+    ondrop: function (event) {
+// NICE WORK MAN :D        
+        var draggableElement = event.relatedTarget;
+        var offsets = draggableElement.getBoundingClientRect();
+        console.log( " coords ( " + Math.round(offsets.left) + ", " + Math.round(offsets.top) + " )" );      
+    },
     ondropdeactivate: function (event) {
         // remove active dropzone feedback
         event.target.classList.remove('drop-active');
         event.target.classList.remove('drop-target');
     }
 });
-
 
     function dragMoveListener (event) {
         var target = event.target,
@@ -272,6 +269,57 @@ interact('.dropzone').dropzone({
 
 <!-- jsonQ -->
 <script src="scripts/jsonQ.min.js"></script>
+
+   <!-- Counting names in the Name list -->
+   <script>
+        function anyad(){
+            var draggables = document.querySelectorAll(".draggable");
+            console.log(draggables);
+
+            for (var i = 0; i < draggables.length; i++){
+                console.log(draggables[i]);
+            }
+
+/*            for (var i = 0; i < draggables.length; i++){
+                draggables[i].addEventListener("click", function(){
+                    console.log(draggables[i]);
+                    console.log("anyád");
+                });
+            }*/
+        };  
+        anyad();
+        
+  //      setTimeout(anyad, 4001);
+        
+    //    anyad();
+
+   //     function counter(){
+ /*           document.addEventListener("drag", 
+                function (event){
+        //       $(".draggable").bind("dragstop", function (){
+                    var number = $(".flex-container > :not(.can-drop)").length;
+                    console.log(number);
+        //        });
+            });*/
+   //     }
+    //    setTimeout(counter, 4000);
+ 
+ 
+ /*function counter(){
+     //       $(".draggable").bind("dragstop", function (){
+                var number = $(".flex-container > :not(.can-drop)").length;
+                console.log(number);
+    //        });
+        }
+        $(".draggable").bind("dragstop", function(){
+     //       $(".draggable").bind("dragstop", function (){
+                var number = $(".flex-container > :not(.can-drop)").length;
+                console.log(number);
+    //        });
+        });
+        setTimeout(counter, 4000);*/
+ //       setInterval(counter, 4000);
+    </script>
 
 </body>
 </html>
