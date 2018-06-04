@@ -11,12 +11,16 @@
     -->
     <script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
     <script src="scripts/dragAndDrop.js"></script>
+    <script src="scripts/openFloor.js"></script>
+
+   
 
     <link rel="stylesheet" href="css/style.css">  
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb"
         crossorigin="anonymous">
     <link rel="stylesheet" href="css/jquery.ui.rotatable.css">
     <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css"> 
+    <link rel="stylesheet" href="css/styleTab.css"> 
     
     <script src="scripts/jquery.ui.rotatable.js"></script>
     <script type="text/javascript">
@@ -41,10 +45,12 @@
             $('#draggable4').draggable();
         });
     </script>
+
+
 </head>
 
 <body>
- <!--   
+<!--   
     <div class="regions" id="container-0">
         <div class="dragster-region dragster-region--drag-only">
             <p>Elements cannot be dropped here. They are copied from here.</p>
@@ -61,6 +67,19 @@
         </div>
     </div>
 -->
+
+
+<div class="container-fluid">
+<div class="column">  
+    
+    <div class="row">
+        <input type="file" name="openSeatMap" id="btnOpenJson" class="box" >
+        <div hidden>
+            <pre style="overflow-y: scroll" id="regeStr">
+            </pre>
+        </div>
+    </div>
+<!--
     <div id="draggable3">
         <div id="target3" style="z-index: 1; width: 200px; border: 1px solid #862dde; padding: 20px; padding-right: 4px;">
             Name XY
@@ -72,24 +91,100 @@
             DESK
         </div>
     </div>
- <!--   
+-->    
+ <!--    
     <br/>
     <input type="button" onclick="Clone()" value="Clone desk"/>
  -->
     <nav>
         <ul>
             <li><a href="groundFloor.html">Ground Floor</a></li>
+            <li><a href="1stFloor.html">1st Floor</a></li>
             <li><a href="2ndFloor.html">2nd Floor</a></li>
         </ul>
     </nav>
+
+<!-- Tabs1 itt nem ugrál, de ott marad Name a helyén, ha tabot váltok -->
+    <div class="tab">
+        <button class="tablinks" onclick="openFloor(event, 'groundFloor')">Ground Floor</button>
+        <button class="tablinks" onclick="openFloor(event, '1stFloor')">1st Floor</button>
+        <button class="tablinks" onclick="openFloor(event, '2ndFloor')">2nd Floor</button>
+    </div>
+        <div id="groundFloor" class="tabcontent">
+            <p>map1</p>
+            <svg></svg>
+        </div>
+        <div id="1stFloor" class="tabcontent">
+            <p>map2</p>
+            <svg></svg> 
+        </div>
+        <div id="2ndFloor" class="tabcontent">
+            <p>map3</p>
+            <svg></svg>
+        </div>
+
+
+
+<!-- Tabs2, 
+    - kurzorra vált a map! ez jó
+    - ha Tab-et váltunk akkor tünjön el az a map és a nevek is !!
+    Nem jó jelenleg, mert ha lerakok egy nevet és tabot váltok akkor ottmarad az új mapen a név, sőt még ugrál is -->
+        <div id="tabs">
+            <ul>
+                <li><a href="#tabs-1">map1</a></li>
+                <li><a href="#tabs-2">map2</a></li>
+                <li><a href="#tabs-3">map3</a></li>
+            </ul>
+            <div id="tabs-1" style="width: 200px; height: 400px;">
+                <div id="end2" class="dropzone" ondrop="drop(event)" ondragover="allowDrop(event)">
+                    <p>This is map1</p>
+                </div>
+            </div>
+            <div id="tabs-2" style="width: 200px; height: 400px;">
+                <div id="end3" class="dropzone" ondrop="drop(event)" ondragover="allowDrop(event)">
+                    <p>This is map2</p>
+                </div>
+            </div>
+            <div id="tabs-3" style="width: 200px; height: 400px;">
+                <div id="end4" class="dropzone" ondrop="drop(event)" ondragover="allowDrop(event)">
+                    <p>This is map3</p>
+                </div>
+            </div>
+        </div>
+        <script>
+            $( function() {
+              $( "#tabs" ).tabs({
+                event: "mouseover"
+              });
+            } );
+
+            $(document).ready(function(){
+                $("#tabs-1").click(function(){
+                    $(".flex-container").hide();
+                   
+                });
+            });
+        </script>
 
     <div id="end1" class="dropzone" ondrop="drop(event)" ondragover="allowDrop(event)">
         <p>This is the map</p>
     </div>
 
-    <!-- ezt heggeszteni tovább -->
-    <div id="no-drop" class="draggable drag-drop"> Name1 </div>
-    <div id="yes-drop" class="draggable drag-drop"> Name2 </div>
+<!-- Name list -->    
+    <div class="flex-container">
+        <!-- nameLoader.js magic here-->        
+    </div>
+
+
+</div>
+</div>
+
+
+
+
+
+
+
 
     <script>
     // target elements with the "draggable" class
@@ -98,16 +193,13 @@
             // enable inertial throwing
             inertia: true,
             // keep the element within the area of it's parent
-/*          restrict: {
-                restriction: ["parent", "div#end2"],
+/*            restrict: {
+                restriction: "parent",
                 endOnly: true,
                 elementRect: { top: 0, left: 0, bottom: 1, right: 1 }
             },*/
             // enable autoScroll
             autoScroll: true,
-/*            onstart: function (event) {
-                console.log('onstart');
-            },*/
             // call this function on every dragmove event
             onmove: dragMoveListener,
             // call this function on every dragend event
@@ -126,8 +218,8 @@
 interact('.dropzone').dropzone({
     // only accept elements matching this CSS selector
     accept: '.draggable',
-    // Require a 75% element overlap for a drop to be possible
-    overlap: 0.75,
+    // Require a x% element overlap for a drop to be possible
+    overlap: 0.75,  
 
     // listen for drop related events:
     ondropactivate: function (event) {
@@ -172,7 +264,14 @@ interact('.dropzone').dropzone({
         target.setAttribute('data-x', x);
         target.setAttribute('data-y', y);
     }
+
 </script>
+
+<script src="scripts/jsonLoader.js"></script>
+<script src="scripts/nameLoader.js"></script>
+
+<!-- jsonQ -->
+<script src="scripts/jsonQ.min.js"></script>
 
 </body>
 </html>

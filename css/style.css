@@ -1,15 +1,35 @@
-#nameList {
-  float: left;
+/*html, body{
+  height: 99%;
+  overflow:hidden;
+}*/
+#regeStr {
+  border: 2px dashed #666;
+  margin: 10px;
+  padding: 10px;
+  font-family: "Arial";
+}
+
+.flex-container {
+  position: relative;
+  display: flex;
+  width: 150px;
+  height: 510px;
+  flex-direction: column;
+  background-color: lightblue;
+/*  overflow: auto;*/
+}
+.flex-container > div {
+  width: 100px;
+  margin: 10px;
+  text-align: center;
 }
 
 #outer-dropzone {
   height: 140px;
 }
-
 #inner-dropzone {
   height: 80px;
 }
-
 .dropzone {
   background-color: #ccc;
   border: dashed 4px transparent;
@@ -19,24 +39,21 @@
   width: 80%;
   transition: background-color 0.3s;
 }
-
 .drop-active {
   border-color: #aaa;
 }
-
 .drop-target {
   background-color: #29e;
   border-color: #fff;
   border-style: solid;
 }
-
 .drag-drop {
   display: inline-block;
   min-width: 40px;
-  padding: 1em 0.5em;
+  padding: 0.1em 0.1em;
   color: #fff;
   background-color: #29e;
-  border: solid 2px #fff;
+  border: solid 0.1em #fff;
   -webkit-transform: translate(0px, 0px);
           transform: translate(0px, 0px);
   transition: background-color 0.3s;
