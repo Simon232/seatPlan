@@ -4,16 +4,15 @@ function nameLoading(){
     console.log(jsonObj);
 
     var names = employees.find("name");
+    var titles = employees.find("title");
+
 //    var namesToAdd = document.createDocumentFragment();
     for(var i = 0; i < names.length; i++){
        var newDiv = document.createElement("div");
        newDiv.className = "draggable drag-drop";
-       newDiv.innerHTML = names.value()[i];
-//       namesToAdd.appendChild(newDiv);
-    //   document.appendChild(namesToAdd);
+       newDiv.innerHTML = names.value()[i] + "<br>" + "<i>" + titles.value()[i];
     var element = document.querySelector(".flex-container");
     element.appendChild(newDiv);
- //   console.log(element);
     }
     
     console.log(names.value()[10]);

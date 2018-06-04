@@ -1,12 +1,19 @@
-/*html, body{
-  height: 99%;
-  overflow:hidden;
-}*/
+html, body{
+ /* height: 99%;*/
+ /* overflow:hidden;*/
+  
+}
 #regeStr {
   border: 2px dashed #666;
   margin: 10px;
   padding: 10px;
   font-family: "Arial";
+}
+
+i {
+  color: black;
+  font-size: 0.9em;
+  font-weight: bold;
 }
 
 .flex-container {
@@ -50,7 +57,7 @@
 .drag-drop {
   display: inline-block;
   min-width: 40px;
-  padding: 0.1em 0.1em;
+  padding: 0.5em 0.5em;
   color: #fff;
   background-color: #29e;
   border: solid 0.1em #fff;
