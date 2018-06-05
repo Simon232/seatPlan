@@ -105,7 +105,7 @@
     </nav>
 
 <!-- Tabs1 itt nem ugrál, de ott marad Name a helyén, ha tabot váltok -->
-    <div class="tab">
+<!--    <div class="tab">
         <button class="tablinks" onclick="openFloor(event, 'groundFloor')">Ground Floor</button>
         <button class="tablinks" onclick="openFloor(event, '1stFloor')">1st Floor</button>
         <button class="tablinks" onclick="openFloor(event, '2ndFloor')">2nd Floor</button>
@@ -122,7 +122,7 @@
             <p>map3</p>
             <svg></svg>
         </div>
-
+    -->
 
 
 <!-- Tabs2, 
@@ -131,23 +131,23 @@
     Nem jó jelenleg, mert ha lerakok egy nevet és tabot váltok akkor ottmarad az új mapen a név, sőt még ugrál is -->
         <div id="tabs">
             <ul>
-                <li><a href="#tabs-1">map1</a></li>
-                <li><a href="#tabs-2">map2</a></li>
-                <li><a href="#tabs-3">map3</a></li>
+                <li><a href="#tabs-1">Ground Floor</a></li>
+                <li><a href="#tabs-2">1st Floor</a></li>
+                <li><a href="#tabs-3">2nd Floor</a></li>
             </ul>
-            <div id="tabs-1" style="width: 200px; height: 400px;">
-                <div id="end2" class="dropzone" ondrop="drop(event)" ondragover="allowDrop(event)">
-                    <p>This is map1</p>
+            <div id="tabs-1" class="maptab">
+                <div id="ground_floor" class="dropzone" ondrop="drop(event)" ondragover="allowDrop(event)">
+                    <p>Ground Floor</p>
                 </div>
             </div>
-            <div id="tabs-2" style="width: 200px; height: 400px;">
-                <div id="end3" class="dropzone" ondrop="drop(event)" ondragover="allowDrop(event)">
-                    <p>This is map2</p>
+            <div id="tabs-2" class="maptab">
+                <div id="first_floor" class="dropzone" ondrop="drop(event)" ondragover="allowDrop(event)">
+                    <p>1st Floor</p>
                 </div>
             </div>
-            <div id="tabs-3" style="width: 200px; height: 400px;">
-                <div id="end4" class="dropzone" ondrop="drop(event)" ondragover="allowDrop(event)">
-                    <p>This is map3</p>
+            <div id="tabs-3" class="maptab">
+                <div id="level2" class="dropzone" ondrop="drop(event)" ondragover="allowDrop(event)">
+                    <p>2nd Floor</p>
                 </div>
             </div>
         </div>
@@ -157,7 +157,7 @@
                 event: "mouseover"
               });
             } );
-
+//???ez??
             $(document).ready(function(){
                 $("#tabs-1").click(function(){
                     $(".flex-container").hide();
@@ -165,19 +165,14 @@
                 });
             });
         </script>
-
-    <div id="end1" class="dropzone" ondrop="drop(event)" ondragover="allowDrop(event)">
-        <p>This is the map</p>
-    </div>
-
 <!-- Name list -->    
-    <p>Number of Names<br> in the list</p>
-    <div class="flex-container">
-        <!-- nameLoader.js magic here-->        
+    <input type="text" id="myInput" onkeyup="searchForNames()" placeholder="Search for names.." title="Type in a name">
+    <p>Number of Names in the list: </p>
+<!--    <div id="nameList" class="name-container">-->
+        <div id="nameList">
+        <!-- employeesLoader.js magic here-->        
     </div>
  
-    
-
 </div>
 </div>
 
@@ -238,6 +233,11 @@ interact('.dropzone').dropzone({
     ondrop: function (event) {
 // NICE WORK MAN :D        
         var draggableElement = event.relatedTarget;
+        draggableElement.classList.remove("name-container");
+
+        document.getElementById("nameList").classList.remove("name-container");
+
+
         var offsets = draggableElement.getBoundingClientRect();
         console.log( " coords ( " + Math.round(offsets.left) + ", " + Math.round(offsets.top) + " )" );      
     },
@@ -265,10 +265,14 @@ interact('.dropzone').dropzone({
 </script>
 
 <script src="scripts/jsonLoader.js"></script>
-<script src="scripts/nameLoader.js"></script>
+<script src="scripts/employeesLoader.js"></script>
+<script src="scripts/furnituresLoader.js"></script>
 
 <!-- jsonQ -->
 <script src="scripts/jsonQ.min.js"></script>
+
+<!-- search for names -->
+<script src="scripts/searchForNames.js"></script>
 
    <!-- Counting names in the Name list -->
    <script>

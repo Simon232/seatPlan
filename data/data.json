@@ -2340,6 +2340,16 @@
       "seat-pos-y": 409,
       "type": "splitter"
     },
+
+    {
+      "angle": 315,
+      "seat-office": "szepvolgyi22",
+      "seat-office-part": "level1",
+      "seat-pos-x": 307,
+      "seat-pos-y": 409,
+      "type": "splitter"
+    },
+
     {
       "angle": 135,
       "seat-office": "szepvolgyi22",
