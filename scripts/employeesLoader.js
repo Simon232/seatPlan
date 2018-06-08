@@ -2,7 +2,7 @@
 function nameLoading(){
     var jsonObj = JSON.parse(document.getElementById('regeStr').innerHTML);
     var employees = jsonQ(jsonObj);
-    console.log(jsonObj);
+//    console.log(jsonObj);  //OK
 
     var names = employees.find("name");
 //later can be shown    var titles = employees.find("title");
@@ -12,15 +12,15 @@ function nameLoading(){
        newDiv.className = "draggable drag-drop";
        newDiv.innerHTML = names.value()[i];
 //later can be shown       newDiv.innerHTML = names.value()[i] + "<br>" + "<i>" + titles.value()[i];
-    var element = document.querySelector("#nameList");
+    var element = document.querySelector("#nameList"); //parent
     element.appendChild(newDiv);
     }
     
-    console.log(names.value()[10]);
+//    console.log(names.value()[10]);  //OK
     //to print the 3rd name
-    console.log(names.value()[2]);
+ //   console.log(names.value()[2]);  //OK
     //to print list of all name
-    console.log(names.value());
+ //   console.log(names.value());  //OK
 }
 
-setTimeout(nameLoading, 4000);
+setTimeout(nameLoading, 5000);
