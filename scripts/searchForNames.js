@@ -6,7 +6,7 @@ function searchForNames() {
     filter = input.value.toUpperCase();
     nameList = document.getElementById("nameList");
     divArr = nameList.getElementsByTagName("div");
-    console.log(divArr);
+//    console.log(divArr);
     for (i = 0; i < divArr.length; i++) {
  //       a = div[i].getElementsByTagName("a")[0];
         if (divArr[i].innerHTML.toUpperCase().indexOf(filter) > -1) {

@@ -12,7 +12,6 @@
     <script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
     <script src="scripts/dragAndDrop.js"></script>
     <script src="scripts/openFloor.js"></script>
-    <script src="scripts/reRender.js"></script>
     
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb"
         crossorigin="anonymous">
@@ -48,8 +47,7 @@
             $("div.level1").hide();
             $("div.level2").hide();
         })
-    });
-   
+    }); 
     </script>
 
     <script src="scripts/jquery.ui.rotatable.js"></script>
@@ -81,10 +79,10 @@
 </head>
 <body>
     <div id="myDIV">
-        <button id="button0" class="btn active" type="button">Hide level0</button>
-        <button id="button1" class="btn" type="button">Hide level1</button>
-        <button id="button2" class="btn" type="button">Hide level2</button>
-        <button id="button3" class="btn" type="button">Hide level3</button>
+        <button id="button0" class="btn active" type="button">Level0</button>
+        <button id="button1" class="btn" type="button">Level1</button>
+        <button id="button2" class="btn" type="button">Level2</button>
+        <button id="button3" class="btn" type="button">Level3</button>
     </div>
 <!--   
     <div class="regions" id="container-0">
@@ -156,10 +154,10 @@
         - kurzorra vált a map! ez jó
         - ha Tab-et váltunk akkor tünjön el az a map és a nevek is !!
         Nem jó jelenleg, mert ha lerakok egy nevet és tabot váltok akkor ottmarad az új mapen a név, sőt még ugrál is -->
-            <button onclick="isRender0()">click me</button>
+    
 
             <div id="tabs">
-                <ul>
+                <ul style="display: none">
                     <li id="lev0"><a href="#tabs-0">Ground Floor</a></li>
                     <li id="lev1"><a href="#tabs-1">1st Floor</a></li>
                     <li id="lev2"><a href="#tabs-2">2nd Floor</a></li>
@@ -195,6 +193,7 @@
             </script>
             
     <!-- Name list -->    
+        <div id="parking">Parking</div>
         <input type="text" id="myInput" onkeyup="searchForNames()" placeholder="Search for names.." title="Type in a name">
     <!--    <div id="nameList" class="name-container">-->
             <div id="nameList">
@@ -261,7 +260,7 @@ interact('.dropzone').dropzone({
         console.log("classes of draggableElement: " + $(event.relatedTarget).attr("class"));
  //       console.log($(event.relatedTarget).parent().attr("class"));
 
-        var sibling = $(event.relatedTarget).siblings();   
+//        var sibling = $(event.relatedTarget).siblings();   
 //        parent.appendChild(event.target);
 //        console.log(parent.attr("id"));  // id=nameList
 //        console.log(sibling.attr("class"));  // draggable drag-drop
@@ -274,9 +273,18 @@ interact('.dropzone').dropzone({
     ondragleave: function (event) {
         // remove the drop feedback style
         event.target.classList.remove('drop-target');
-        event.relatedTarget.classList.remove('can-drop');
+//        event.relatedTarget.classList.remove('can-drop');
     // event.relatedTarget.textContent = 'Dragged out';
         event.relatedTarget.classList.add('levelUnknown');
+        if ( $(event.relatedTarget).hasClass("level0") ){
+            event.relatedTarget.classList.remove("level0");
+        } else if ( $(event.relatedTarget).hasClass("level1") ){
+            event.relatedTarget.classList.remove("level1");
+        } else if ( $(event.relatedTarget).hasClass("level2") ){
+            event.relatedTarget.classList.remove("level2");
+        } else if ( $(event.relatedTarget).hasClass("level3") ){
+            event.relatedTarget.classList.remove("level3");
+        }   
     },
 
     ondrop: function (event) {

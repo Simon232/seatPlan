@@ -6,6 +6,18 @@
   font-family: "Arial";
 }
 
+#parking {
+  height: 50px;
+  width: 99%;
+  border: 1px solid black;
+}
+
+.btn {
+  font-size: 20px;
+  padding: 10px 20px;
+  margin: 4px 2px;
+}
+
 .active, .btn:hover {
   background-color: #666;
   color: white;
