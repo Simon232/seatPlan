@@ -12,7 +12,7 @@
     <script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
     <script src="scripts/dragAndDrop.js"></script>
     <script src="scripts/openFloor.js"></script>
-
+    <script src="scripts/reRender.js"></script>
     
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb"
         crossorigin="anonymous">
@@ -25,18 +25,31 @@
     <script>
     $(document).ready(function(){ 
         $("#button0").click(function(){
-            $("div.level0").toggle();
+            $("div.level0").show();
+            $("div.level1").hide();
+            $("div.level2").hide();
+            $("div.level3").hide();
         })
         $("#button1").click(function(){
-            $("div.level1").toggle();
+            $("div.level1").show();
+            $("div.level0").hide();
+            $("div.level2").hide();
+            $("div.level3").hide();
         })
         $("#button2").click(function(){
-            $("div.level2").toggle();
+            $("div.level2").show();
+            $("div.level0").hide();
+            $("div.level1").hide();
+            $("div.level3").hide();
         })
         $("#button3").click(function(){
-            $("div.level3").toggle();
+            $("div.level3").show();
+            $("div.level0").hide();
+            $("div.level1").hide();
+            $("div.level2").hide();
         })
     });
+   
     </script>
 
     <script src="scripts/jquery.ui.rotatable.js"></script>
@@ -67,10 +80,12 @@
     
 </head>
 <body>
-    <button id="button0" type="button">Hide level0</button>
-    <button id="button1" type="button">Hide level1</button>
-    <button id="button2" type="button">Hide level2</button>
-    <button id="button3" type="button">Hide level3</button>
+    <div id="myDIV">
+        <button id="button0" class="btn active" type="button">Hide level0</button>
+        <button id="button1" class="btn" type="button">Hide level1</button>
+        <button id="button2" class="btn" type="button">Hide level2</button>
+        <button id="button3" class="btn" type="button">Hide level3</button>
+    </div>
 <!--   
     <div class="regions" id="container-0">
         <div class="dragster-region dragster-region--drag-only">
@@ -141,6 +156,8 @@
         - kurzorra vált a map! ez jó
         - ha Tab-et váltunk akkor tünjön el az a map és a nevek is !!
         Nem jó jelenleg, mert ha lerakok egy nevet és tabot váltok akkor ottmarad az új mapen a név, sőt még ugrál is -->
+            <button onclick="isRender0()">click me</button>
+
             <div id="tabs">
                 <ul>
                     <li id="lev0"><a href="#tabs-0">Ground Floor</a></li>
@@ -148,20 +165,20 @@
                     <li id="lev2"><a href="#tabs-2">2nd Floor</a></li>
                     <li id="lev3"><a href="#tabs-3">KUKA</a></li>
                 </ul>
-                <div id="tabs-0" class="maptab">
+                <div id="tabs-0" class="maptab level0">
                     <div id="level0" class="level0 dropzone" ondrop="drop(event)" ondragover="allowDrop(event)">
                     </div>
                 </div>
-                <div id="tabs-1" class="maptab">
+                <div id="tabs-1" class="maptab level1">
                     <div id="level1" class="level1 dropzone" ondrop="drop(event)" ondragover="allowDrop(event)">
                     </div>
                 </div>
-                <div id="tabs-2" class="maptab">
+                <div id="tabs-2" class="maptab level2">
                     <div id="level2" class="level2 dropzone" ondrop="drop(event)" ondragover="allowDrop(event)">
                     </div>
                 </div>
 
-                <div id="tabs-3" class="maptab">
+                <div id="tabs-3" class="maptab level3">
                     <div id="KUKA" class="level3 dropzone" ondrop="drop(event)" ondragover="allowDrop(event)">
                     </div>
                 </div>
@@ -169,9 +186,9 @@
             </div>
             <script>
                 $( function() {
-                $( "#tabs" ).tabs({
-                    event: "click"
-                });
+                    $( "#tabs" ).tabs({
+                        event: "click"
+                    });
                 });  
 
         
@@ -231,25 +248,6 @@ interact('.dropzone').dropzone({
         // feedback the possibility of a drop
         dropzoneElement.classList.add('drop-target');
         draggableElement.classList.add('can-drop');
-    },
-    ondragleave: function (event) {
-        // remove the drop feedback style
-        event.target.classList.remove('drop-target');
-        event.relatedTarget.classList.remove('can-drop');
-    // event.relatedTarget.textContent = 'Dragged out';
-    },
-
-
-    ondrop: function (event) {
-        var draggableElement = event.relatedTarget,
-            dropzoneElement = event.target;  
-    //    draggableElement.classList.remove("name-container");   
- //       console.log(parentMap.attr("id"));
-        var parentMap = $(event.target).parent();  
-//        console.log(parentMap.attr("id"));  //tabs-3
-        var parent = $(event.relatedTarget).parent();  // id=nameList
-      //        $(draggableElement).prependTo("#level2"); 
-//draggableElement.classList.add("level2"); 
 
         if ($(event.target).parent().attr("id") == "tabs-0"){
             draggableElement.classList.add("level0"); 
@@ -259,23 +257,34 @@ interact('.dropzone').dropzone({
             draggableElement.classList.add("level2"); 
         } else if ($(event.target).parent().attr("id") == "tabs-3"){
             draggableElement.classList.add("level3"); 
-        } else {
-            draggableElement.classList.add("levelUnknown");             
-        }
-
+        } 
         console.log("classes of draggableElement: " + $(event.relatedTarget).attr("class"));
-        console.log($(event.relatedTarget).parent().attr("class"));
+ //       console.log($(event.relatedTarget).parent().attr("class"));
 
         var sibling = $(event.relatedTarget).siblings();   
 //        parent.appendChild(event.target);
-        console.log(parent.attr("id"));  // id=nameList
+//        console.log(parent.attr("id"));  // id=nameList
 //        console.log(sibling.attr("class"));  // draggable drag-drop
 //    console.log(sibling[0]);  //OK
 //        console.log(sibling[0].className);  //draggable drag-drop
- //       document.getElementById("nameList").classList.remove("name-container");
+//       document.getElementById("nameList").classList.remove("name-container");
         var offsets = draggableElement.getBoundingClientRect();
-        console.log( draggableElement.innerHTML + " coords ( " + Math.round(offsets.left) + ", " + Math.round(offsets.top) + " )" );      
+        console.log( draggableElement.innerHTML + " coords ( " + Math.round(offsets.left) + ", " + Math.round(offsets.top) + " )" );
     },
+    ondragleave: function (event) {
+        // remove the drop feedback style
+        event.target.classList.remove('drop-target');
+        event.relatedTarget.classList.remove('can-drop');
+    // event.relatedTarget.textContent = 'Dragged out';
+        event.relatedTarget.classList.add('levelUnknown');
+    },
+
+    ondrop: function (event) {
+        var draggableElement = event.relatedTarget,
+            dropzoneElement = event.target;  
+
+    },
+
     ondropdeactivate: function (event) {
         // remove active dropzone feedback
         event.target.classList.remove('drop-active');
@@ -306,6 +315,20 @@ interact('.dropzone').dropzone({
 <script src="scripts/jsonQ.min.js"></script>
 <!-- search for names -->
 <script src="scripts/searchForNames.js"></script>
+
+<!-- to change button to active -->
+<script>
+    var header = document.getElementById("myDIV");
+    var btns = header.getElementsByClassName("btn");
+    for (var i = 0; i < btns.length; i++) {
+        btns[i].addEventListener("click", function() {
+        var current = document.getElementsByClassName("active");
+        current[0].className = current[0].className.replace(" active", "");
+        this.className += " active";
+        });
+    }
+</script>
+
 
 </body>
 </html>

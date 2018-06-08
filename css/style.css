@@ -6,6 +6,11 @@
   font-family: "Arial";
 }
 
+.active, .btn:hover {
+  background-color: #666;
+  color: white;
+}
+
 i {
   color: black;
   font-size: 0.9em;

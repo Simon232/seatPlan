@@ -20,8 +20,6 @@ function furnitures(){
         var newDiv = document.createElement("div");
         newDiv.className = "draggable drag-drop";
         newDiv.style.top = posY.value()[i] + "px";  // important to add + "px", I have forget that 
- //       newDiv.style.top = parseInt("300") + 5*i + "px";
-//        newDiv.style.left = parseInt("30") + 5*i + "px";
         newDiv.style.left = posX.value()[i] + "px"; 
         newDiv.style.position = "relative";
         newDiv.innerHTML = type.value()[i];
