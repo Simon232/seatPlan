@@ -262,6 +262,7 @@ interact('.dropzone').dropzone({
         } else {
             draggableElement.classList.add("levelUnknown");             
         }
+
         console.log("classes of draggableElement: " + $(event.relatedTarget).attr("class"));
         console.log($(event.relatedTarget).parent().attr("class"));
 
@@ -273,7 +274,7 @@ interact('.dropzone').dropzone({
 //        console.log(sibling[0].className);  //draggable drag-drop
  //       document.getElementById("nameList").classList.remove("name-container");
         var offsets = draggableElement.getBoundingClientRect();
-        console.log( this.innerHTML + " coords ( " + Math.round(offsets.left) + ", " + Math.round(offsets.top) + " )" );      
+        console.log( draggableElement.innerHTML + " coords ( " + Math.round(offsets.left) + ", " + Math.round(offsets.top) + " )" );      
     },
     ondropdeactivate: function (event) {
         // remove active dropzone feedback
