@@ -4,101 +4,286 @@
     <meta charset="UTF-8">
     <title>Drag Drop Demo</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/interact.js/1.2.8/interact.min.js"></script>
+    
     <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+   <!--
+    <script src="http://code.jquery.com/jquery-1.11.3.js"></script>
+    -->
+    <script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
     <script src="scripts/dragAndDrop.js"></script>
+    <script src="scripts/openFloor.js"></script>
 
-    <style>
-        #drag-1, #drag-2 {
-            width: 80px;
-            height: 20px;
-            min-height: 3.5em;
-            margin: 5%;
-            background-color: #29e;
-            color: white;
-            border-radius: 0.75em;
-            padding: 5%;
-            -webkit-transform: translate(0px, 0px);
-            transform: translate(0px, 0px);
-        }
-        #end1 {
-            width: 300px;
-            height: 300px;
-            border: 2px solid red;
-            position: absolute;
-            left: 100px;
-        }
-        #end2 {
-            width: 300px;
-            height: 300px;
-            border: 2px solid red;
-            position: absolute;
-            left: 500px;
-        }
-    </style>
-    <link rel="stylesheet" type="text/css" href="css/style.css">
+    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb"
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="css/jquery.ui.rotatable.css">
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css"> 
+    <link rel="stylesheet" href="css/styleTab.css"> 
+    <link rel="stylesheet" href="css/style.css">  
+  
+<!-- Hide/show levels -->    
+    <script>
+    $(document).ready(function(){ 
+        $("#button0").click(function(){
+            $("div.level0").toggle();
+        })
+        $("#button1").click(function(){
+            $("div.level1").toggle();
+        })
+        $("#button2").click(function(){
+            $("div.level2").toggle();
+        })
+        $("#button3").click(function(){
+            $("div.level3").toggle();
+        })
+    });
+    </script>
+
+    <script src="scripts/jquery.ui.rotatable.js"></script>
+
+<!-- For desk rotating -->
+    <script type="text/javascript">
+        $(document).ready(function() {
+            var params = {
+                start: function(event, ui) {
+                    console.log("Rotating started")
+                },
+                rotate: function(event, ui) {
+                    if (Math.abs(ui.angle.current > 6)) {
+                        console.log("Rotating " + ui.angle.current)
+                    }
+                },
+                stop: function(event, ui) {
+                    console.log("Rotating stopped")
+                },
+            };
+        
+            $('#target3').resizable().rotatable( {snap: true} );   // resizable lehet nem kell
+            $('#draggable3').draggable();
+            $('#desk').resizable().rotatable( {snap: true} );   // resizable lehet nem kell
+            $('#draggable4').draggable();
+        });
+    </script>
     
 </head>
-
 <body>
-<!--
-    <div ondrop="drop(event)" ondragover="allowDrop(event)"> 
-
-        <div id="drag-1" class="draggable" draggable="true" ondragstart="drag(event)">
-            <p> Batman </p>
+    <button id="button0" type="button">Hide level0</button>
+    <button id="button1" type="button">Hide level1</button>
+    <button id="button2" type="button">Hide level2</button>
+    <button id="button3" type="button">Hide level3</button>
+<!--   
+    <div class="regions" id="container-0">
+        <div class="dragster-region dragster-region--drag-only">
+            <p>Elements cannot be dropped here. They are copied from here.</p>
+            <div class="dragster-block">2.1</div>
+            <div class="dragster-block">2.2</div>
+            <div class="dragster-block">2.3</div>
         </div>
-        <div id="drag-2" class="draggable" draggable="true" ondragstart="drag(event)">
-            <p> Robin </p>
+
+        <div class="dragster-region">
+            <p>destination</p>
+            <div class="dragster-block">3.1</div>
+            <div class="dragster-block">3.2</div>
+            <div class="dragster-block">3.3</div>
         </div>
     </div>
 -->
-    <div id="end1" class="dropzone" ondrop="drop(event)" ondragover="allowDrop(event)">
-        <p>This is the map</p>
-        <div id="drag-1" class="draggable" draggable="true" ondragstart="drag(event)">
-            <p> Superman </p>
+
+
+<div class="container-fluid">
+    <div class="column">  
+        
+        <div class="row">
+            <input type="file" name="openSeatMap" id="btnOpenJson" class="box" >
+            <div hidden>
+                <pre style="overflow-y: scroll" id="regeStr">
+                </pre>
+            </div>
+        </div>
+    <!--
+        <div id="draggable3">
+            <div id="target3" style="z-index: 1; width: 200px; border: 1px solid #862dde; padding: 20px; padding-right: 4px;">
+                Name XY
+            </div>
+        </div>
+    -->
+        <div id="draggable4" draggable="true">
+            <div id="desk" style="z-index: 1; width: 100px; border: 1px solid black; padding: 5px; padding-right: 2px;">
+                DESK
+            </div>
+        </div>       
+    <!--    
+        <br/>
+        <input type="button" onclick="Clone()" value="Clone desk"/>
+    -->
+    
+    <!-- Tabs1 itt nem ugrál, de ott marad Name a helyén, ha tabot váltok -->
+    <!--    <div class="tab">
+            <button class="tablinks" onclick="openFloor(event, 'groundFloor')">Ground Floor</button>
+            <button class="tablinks" onclick="openFloor(event, '1stFloor')">1st Floor</button>
+            <button class="tablinks" onclick="openFloor(event, '2ndFloor')">2nd Floor</button>
+        </div>
+            <div id="groundFloor" class="tabcontent">
+                <p>map1</p>
+                <svg></svg>
+            </div>
+            <div id="1stFloor" class="tabcontent">
+                <p>map2</p>
+                <svg></svg> 
+            </div>
+            <div id="2ndFloor" class="tabcontent">
+                <p>map3</p>
+                <svg></svg>
+            </div>
+        -->
+
+    <!-- Tabs2, 
+        - kurzorra vált a map! ez jó
+        - ha Tab-et váltunk akkor tünjön el az a map és a nevek is !!
+        Nem jó jelenleg, mert ha lerakok egy nevet és tabot váltok akkor ottmarad az új mapen a név, sőt még ugrál is -->
+            <div id="tabs">
+                <ul>
+                    <li id="lev0"><a href="#tabs-0">Ground Floor</a></li>
+                    <li id="lev1"><a href="#tabs-1">1st Floor</a></li>
+                    <li id="lev2"><a href="#tabs-2">2nd Floor</a></li>
+                    <li id="lev3"><a href="#tabs-3">KUKA</a></li>
+                </ul>
+                <div id="tabs-0" class="maptab">
+                    <div id="level0" class="level0 dropzone" ondrop="drop(event)" ondragover="allowDrop(event)">
+                    </div>
+                </div>
+                <div id="tabs-1" class="maptab">
+                    <div id="level1" class="level1 dropzone" ondrop="drop(event)" ondragover="allowDrop(event)">
+                    </div>
+                </div>
+                <div id="tabs-2" class="maptab">
+                    <div id="level2" class="level2 dropzone" ondrop="drop(event)" ondragover="allowDrop(event)">
+                    </div>
+                </div>
+
+                <div id="tabs-3" class="maptab">
+                    <div id="KUKA" class="level3 dropzone" ondrop="drop(event)" ondragover="allowDrop(event)">
+                    </div>
+                </div>
+
+            </div>
+            <script>
+                $( function() {
+                $( "#tabs" ).tabs({
+                    event: "click"
+                });
+                });  
+
+        
+            </script>
+            
+    <!-- Name list -->    
+        <input type="text" id="myInput" onkeyup="searchForNames()" placeholder="Search for names.." title="Type in a name">
+    <!--    <div id="nameList" class="name-container">-->
+            <div id="nameList">
+            <!-- employeesLoader.js magic here-->        
         </div>
     </div>
-
-    <div id="end2" class="dropzone" >
-        <p>You can't drop to here</p>
-    </div>
+</div>
 
 
-    <script>
+<script>
     // target elements with the "draggable" class
     interact('.draggable')
         .draggable({
             // enable inertial throwing
             inertia: true,
             // keep the element within the area of it's parent
-            restrict: {
+/*            restrict: {
                 restriction: "parent",
                 endOnly: true,
                 elementRect: { top: 0, left: 0, bottom: 1, right: 1 }
-            },
+            },*/
             // enable autoScroll
             autoScroll: true,
-            onstart: function (event) {
-                console.log('onstart');
-            },
             // call this function on every dragmove event
             onmove: dragMoveListener,
             // call this function on every dragend event
             onend: $( "*", document.body ).click(function( event ) {
                 var offset = $( this ).offset();
                 event.stopPropagation();
-                console.log( this.tagName +
-                    " coords ( " + offset.left + ", " + offset.top + " )" );
+/*                console.log( this.tagName +
+                    " coords ( " + Math.round(offset.left) + ", " + Math.round(offset.top) + " )" );*/
                 }),
         });
-/* TO BE CONTINUED
-    interact(".dropzone").dropzone({
-    
 
-    });
-*/
+/* The dragging code for '.draggable' from the demo above
+ * applies to this demo as well so it doesn't have to be repeated. */
+// enable draggables to be dropped into this
+interact('.dropzone').dropzone({
+    // only accept elements matching this CSS selector
+    accept: '.draggable',
+    // Require a x% element overlap for a drop to be possible
+    overlap: 0.85,  
+    // listen for drop related events:
+    ondropactivate: function (event) {
+        // add active dropzone feedback
+        event.target.classList.add('drop-active');
+    },
+    ondragenter: function (event) {
+        var draggableElement = event.relatedTarget,
+            dropzoneElement = event.target;   
+        // feedback the possibility of a drop
+        dropzoneElement.classList.add('drop-target');
+        draggableElement.classList.add('can-drop');
+    },
+    ondragleave: function (event) {
+        // remove the drop feedback style
+        event.target.classList.remove('drop-target');
+        event.relatedTarget.classList.remove('can-drop');
+    // event.relatedTarget.textContent = 'Dragged out';
+    },
+
+
+    ondrop: function (event) {
+        var draggableElement = event.relatedTarget,
+            dropzoneElement = event.target;  
+    //    draggableElement.classList.remove("name-container");   
+ //       console.log(parentMap.attr("id"));
+        var parentMap = $(event.target).parent();  
+//        console.log(parentMap.attr("id"));  //tabs-3
+        var parent = $(event.relatedTarget).parent();  // id=nameList
+      //        $(draggableElement).prependTo("#level2"); 
+//draggableElement.classList.add("level2"); 
+
+        if ($(event.target).parent().attr("id") == "tabs-0"){
+            draggableElement.classList.add("level0"); 
+        } else if ($(event.target).parent().attr("id") == "tabs-1"){
+            draggableElement.classList.add("level1"); 
+        } else if ($(event.target).parent().attr("id") == "tabs-2"){
+            draggableElement.classList.add("level2"); 
+        } else if ($(event.target).parent().attr("id") == "tabs-3"){
+            draggableElement.classList.add("level3"); 
+        } else {
+            draggableElement.classList.add("levelUnknown");             
+        }
+
+        console.log("classes of draggableElement: " + $(event.relatedTarget).attr("class"));
+        console.log($(event.relatedTarget).parent().attr("class"));
+
+        var sibling = $(event.relatedTarget).siblings();   
+//        parent.appendChild(event.target);
+        console.log(parent.attr("id"));  // id=nameList
+//        console.log(sibling.attr("class"));  // draggable drag-drop
+//    console.log(sibling[0]);  //OK
+//        console.log(sibling[0].className);  //draggable drag-drop
+ //       document.getElementById("nameList").classList.remove("name-container");
+        var offsets = draggableElement.getBoundingClientRect();
+        console.log( draggableElement.innerHTML + " coords ( " + Math.round(offsets.left) + ", " + Math.round(offsets.top) + " )" );      
+    },
+    ondropdeactivate: function (event) {
+        // remove active dropzone feedback
+        event.target.classList.remove('drop-active');
+        event.target.classList.remove('drop-target');
+    }
+});
 
     function dragMoveListener (event) {
-//        console.log('dragMoveListener');
         var target = event.target,
             // keep the dragged position in the data-x/data-y attributes
             x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx,
@@ -107,10 +292,20 @@
         target.style.webkitTransform =
             target.style.transform =
                 'translate(' + x + 'px, ' + y + 'px)';
+
         // update the position attributes
         target.setAttribute('data-x', x);
         target.setAttribute('data-y', y);
     }
-    </script>
+</script>
+
+<script src="scripts/jsonLoader.js"></script>
+<script src="scripts/employeesLoader.js"></script>
+<script src="scripts/furnituresLoader.js"></script>
+<!-- jsonQ -->
+<script src="scripts/jsonQ.min.js"></script>
+<!-- search for names -->
+<script src="scripts/searchForNames.js"></script>
+
 </body>
 </html>
