@@ -7,7 +7,7 @@
 }
 
 #parking {
-  height: 50px;
+  height: 80px;
   width: 99%;
   border: 1px solid black;
 }
@@ -17,34 +17,25 @@
   padding: 10px 20px;
   margin: 4px 2px;
 }
-
 .active, .btn:hover {
   background-color: #666;
   color: white;
 }
-
 i {
   color: black;
   font-size: 0.9em;
   font-weight: bold;
 }
-
 .name-container {
-/* position: relative;*/
- /* display: flex;*/
   width: 150px;
   height: 510px;
- /* flex-direction: column;*/
   background-color: lightblue;
-/* overflow: auto;*/
 }
-
 .name-container > div {
   width: 100px;
   margin: 10px;
   text-align: center;
 }
-
 #outer-dropzone {
   height: 140px;
 }
@@ -84,14 +75,6 @@ i {
   color: #000;
   background-color: #4e4;
 }
-/*
-#end1 {
-    width: 700px;
-    height: 700px;
-    border: 2px solid red;
-    position: absolute;
-    left: 200px;
-}*/
 
 .maptab {
   width: 100%;
@@ -115,10 +98,16 @@ i {
   border: 2px solid red;
   position: absolute;
 }
-#KUKA {
+#level3 {
   width: 99%;
   height: 700px;
   border: 2px solid black;
+  position: absolute;
+}
+#level4 {
+  width: 99%;
+  height: 700px;
+  border: 2px solid rgb(0, 0, 0);
   position: absolute;
 }
 

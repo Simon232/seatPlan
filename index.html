@@ -28,24 +28,36 @@
             $("div.level1").hide();
             $("div.level2").hide();
             $("div.level3").hide();
+            $("div.level4").hide();
         })
         $("#button1").click(function(){
             $("div.level1").show();
             $("div.level0").hide();
             $("div.level2").hide();
             $("div.level3").hide();
+            $("div.level4").hide();
         })
         $("#button2").click(function(){
             $("div.level2").show();
             $("div.level0").hide();
             $("div.level1").hide();
             $("div.level3").hide();
+            $("div.level4").hide();
         })
         $("#button3").click(function(){
             $("div.level3").show();
             $("div.level0").hide();
             $("div.level1").hide();
             $("div.level2").hide();
+            $("div.level4").hide();
+        })
+        $("#button4").click(function(){
+            $("div.level4").show();
+            $("div.level0").hide();
+            $("div.level1").hide();
+            $("div.level2").hide();
+            $("div.level3").hide();
+
         })
     }); 
     </script>
@@ -82,7 +94,8 @@
         <button id="button0" class="btn active" type="button">Level0</button>
         <button id="button1" class="btn" type="button">Level1</button>
         <button id="button2" class="btn" type="button">Level2</button>
-        <button id="button3" class="btn" type="button">Level3</button>
+        <button id="button3" class="btn" type="button">USA</button>
+        <button id="button4" class="btn" type="button">KUKA</button>
     </div>
 <!--   
     <div class="regions" id="container-0">
@@ -162,7 +175,9 @@
                     <li id="lev1"><a href="#tabs-1">1st Floor</a></li>
                     <li id="lev2"><a href="#tabs-2">2nd Floor</a></li>
                     <li id="lev3"><a href="#tabs-3">KUKA</a></li>
+                    <li id="lev4"><a href="#tabs-4">KUKA</a></li>
                 </ul>
+
                 <div id="tabs-0" class="maptab level0">
                     <div id="level0" class="level0 dropzone" ondrop="drop(event)" ondragover="allowDrop(event)">
                     </div>
@@ -175,25 +190,25 @@
                     <div id="level2" class="level2 dropzone" ondrop="drop(event)" ondragover="allowDrop(event)">
                     </div>
                 </div>
-
                 <div id="tabs-3" class="maptab level3">
-                    <div id="KUKA" class="level3 dropzone" ondrop="drop(event)" ondragover="allowDrop(event)">
+                    <div id="level3" class="level3 dropzone" ondrop="drop(event)" ondragover="allowDrop(event)">
                     </div>
                 </div>
-
+                <div id="tabs-4" class="maptab level4">
+                    <div id="level4" class="level4 dropzone" ondrop="drop(event)" ondragover="allowDrop(event)">
+                    </div>
+                </div>
             </div>
             <script>
                 $( function() {
                     $( "#tabs" ).tabs({
                         event: "click"
                     });
-                });  
-
-        
+                });          
             </script>
             
     <!-- Name list -->    
-        <div id="parking">Parking</div>
+        <div id="parking">Parking zone</div>
         <input type="text" id="myInput" onkeyup="searchForNames()" placeholder="Search for names.." title="Type in a name">
     <!--    <div id="nameList" class="name-container">-->
             <div id="nameList">
@@ -256,6 +271,8 @@ interact('.dropzone').dropzone({
             draggableElement.classList.add("level2"); 
         } else if ($(event.target).parent().attr("id") == "tabs-3"){
             draggableElement.classList.add("level3"); 
+        } else if ($(event.target).parent().attr("id") == "tabs-4"){
+            draggableElement.classList.add("level4"); 
         } 
         console.log("classes of draggableElement: " + $(event.relatedTarget).attr("class"));
  //       console.log($(event.relatedTarget).parent().attr("class"));
@@ -284,15 +301,15 @@ interact('.dropzone').dropzone({
             event.relatedTarget.classList.remove("level2");
         } else if ( $(event.relatedTarget).hasClass("level3") ){
             event.relatedTarget.classList.remove("level3");
-        }   
+        } else if ( $(event.relatedTarget).hasClass("level4") ){
+            event.relatedTarget.classList.remove("level4");
+        }     
     },
-
     ondrop: function (event) {
         var draggableElement = event.relatedTarget,
             dropzoneElement = event.target;  
 
     },
-
     ondropdeactivate: function (event) {
         // remove active dropzone feedback
         event.target.classList.remove('drop-active');
@@ -336,6 +353,8 @@ interact('.dropzone').dropzone({
         });
     }
 </script>
+
+<script src="scripts/cloneFurnitures.js"></script>
 
 
 </body>

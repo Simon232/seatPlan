@@ -18,11 +18,13 @@ function furnitures(){
     for(var i = 0; i < posX.length; i++){
  //???       newDiv.setAttribute("class","draggable drag-drop");
         var newDiv = document.createElement("div");
-        newDiv.className = "draggable drag-drop";
+        newDiv.id = "furniture" + i;
+        newDiv.className = "draggable drag-drop furnitures";
         newDiv.style.top = posY.value()[i] + "px";  // important to add + "px", I have forget that 
         newDiv.style.left = posX.value()[i] + "px"; 
         newDiv.style.position = "relative";
         newDiv.innerHTML = type.value()[i];
+        
 //        console.log(posX.value()[i]);   //OK
 //        console.log(posY.value()[i]);   //OK
 //        console.log(type.value()[i]);   //OK
