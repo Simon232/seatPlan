@@ -29,6 +29,8 @@
             $("div.level2").hide();
             $("div.level3").hide();
             $("div.level4").hide();
+            $("div.level5").hide();
+            $("div.level6").hide();
         })
         $("#button1").click(function(){
             $("div.level1").show();
@@ -36,6 +38,8 @@
             $("div.level2").hide();
             $("div.level3").hide();
             $("div.level4").hide();
+            $("div.level5").hide();
+            $("div.level6").hide();
         })
         $("#button2").click(function(){
             $("div.level2").show();
@@ -43,6 +47,8 @@
             $("div.level1").hide();
             $("div.level3").hide();
             $("div.level4").hide();
+            $("div.level5").hide();
+            $("div.level6").hide();
         })
         $("#button3").click(function(){
             $("div.level3").show();
@@ -50,6 +56,8 @@
             $("div.level1").hide();
             $("div.level2").hide();
             $("div.level4").hide();
+            $("div.level5").hide();
+            $("div.level6").hide();
         })
         $("#button4").click(function(){
             $("div.level4").show();
@@ -57,7 +65,26 @@
             $("div.level1").hide();
             $("div.level2").hide();
             $("div.level3").hide();
-
+            $("div.level5").hide();
+            $("div.level6").hide();
+        })
+        $("#button5").click(function(){
+            $("div.level5").show();
+            $("div.level0").hide();
+            $("div.level1").hide();
+            $("div.level2").hide();
+            $("div.level3").hide();
+            $("div.level4").hide();
+            $("div.level6").hide();
+        })
+        $("#button6").click(function(){
+            $("div.level6").show();
+            $("div.level0").hide();
+            $("div.level1").hide();
+            $("div.level2").hide();
+            $("div.level3").hide();
+            $("div.level4").hide();
+            $("div.level5").hide();
         })
     }); 
     </script>
@@ -95,7 +122,9 @@
         <button id="button1" class="btn" type="button">Level1</button>
         <button id="button2" class="btn" type="button">Level2</button>
         <button id="button3" class="btn" type="button">USA</button>
-        <button id="button4" class="btn" type="button">KUKA</button>
+        <button id="button4" class="btn" type="button">Finland</button>
+        <button id="button5" class="btn" type="button">Japan</button>
+        <button id="button6" class="btn" type="button">KUKA</button>
     </div>
 <!--   
     <div class="regions" id="container-0">
@@ -176,6 +205,8 @@
                     <li id="lev2"><a href="#tabs-2">2nd Floor</a></li>
                     <li id="lev3"><a href="#tabs-3">KUKA</a></li>
                     <li id="lev4"><a href="#tabs-4">KUKA</a></li>
+                    <li id="lev5"><a href="#tabs-5">KUKA</a></li>
+                    <li id="lev6"><a href="#tabs-6">KUKA</a></li>
                 </ul>
 
                 <div id="tabs-0" class="maptab level0">
@@ -198,6 +229,14 @@
                     <div id="level4" class="level4 dropzone" ondrop="drop(event)" ondragover="allowDrop(event)">
                     </div>
                 </div>
+                <div id="tabs-5" class="maptab level5">
+                    <div id="level5" class="level5 dropzone" ondrop="drop(event)" ondragover="allowDrop(event)">
+                    </div>
+                </div>
+                <div id="tabs-6" class="maptab level6">
+                    <div id="level6" class="level6 dropzone" ondrop="drop(event)" ondragover="allowDrop(event)">
+                    </div>
+                </div>
             </div>
             <script>
                 $( function() {
@@ -207,13 +246,11 @@
                 });          
             </script>
             
-    <!-- Name list -->    
-        <div id="parking">Parking zone</div>
-        <input type="text" id="myInput" onkeyup="searchForNames()" placeholder="Search for names.." title="Type in a name">
+    <!-- Name list -->           
     <!--    <div id="nameList" class="name-container">-->
             <div id="nameList">
-            <!-- employeesLoader.js magic here-->        
-        </div>
+                <!-- employeesLoader.js magic here-->        
+            </div>
     </div>
 </div>
 
@@ -273,17 +310,12 @@ interact('.dropzone').dropzone({
             draggableElement.classList.add("level3"); 
         } else if ($(event.target).parent().attr("id") == "tabs-4"){
             draggableElement.classList.add("level4"); 
+        } else if ($(event.target).parent().attr("id") == "tabs-5"){
+            draggableElement.classList.add("level5"); 
+        } else if ($(event.target).parent().attr("id") == "tabs-6"){
+            draggableElement.classList.add("level6"); 
         } 
         console.log("classes of draggableElement: " + $(event.relatedTarget).attr("class"));
- //       console.log($(event.relatedTarget).parent().attr("class"));
-
-//        var sibling = $(event.relatedTarget).siblings();   
-//        parent.appendChild(event.target);
-//        console.log(parent.attr("id"));  // id=nameList
-//        console.log(sibling.attr("class"));  // draggable drag-drop
-//    console.log(sibling[0]);  //OK
-//        console.log(sibling[0].className);  //draggable drag-drop
-//       document.getElementById("nameList").classList.remove("name-container");
         var offsets = draggableElement.getBoundingClientRect();
         console.log( draggableElement.innerHTML + " coords ( " + Math.round(offsets.left) + ", " + Math.round(offsets.top) + " )" );
     },
@@ -303,7 +335,11 @@ interact('.dropzone').dropzone({
             event.relatedTarget.classList.remove("level3");
         } else if ( $(event.relatedTarget).hasClass("level4") ){
             event.relatedTarget.classList.remove("level4");
-        }     
+        } else if ( $(event.relatedTarget).hasClass("level5") ){
+            event.relatedTarget.classList.remove("level5");
+        } else if ( $(event.relatedTarget).hasClass("level6") ){
+            event.relatedTarget.classList.remove("level6");
+        }         
     },
     ondrop: function (event) {
         var draggableElement = event.relatedTarget,

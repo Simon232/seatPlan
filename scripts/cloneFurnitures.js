@@ -1,4 +1,5 @@
 // not working good
+// Clone-nál mindent megörököl, egy JS furniture objectből, csak pl x pozijához adódik 30px
 function cloneFurni(){
 //var furnitures = document.getElementsByClassName("furnitures");
     var furnitures = document.getElementById("furniture0");
@@ -17,7 +18,6 @@ function cloneFurni(){
     });
 }
 setTimeout(cloneFurni, 5000);
-
 
 /*
 var furnitureDiv = function(){

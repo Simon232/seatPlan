@@ -11,12 +11,3 @@ function drop(ev) {
     var data = ev.dataTransfer.getData("text");
     ev.target.appendChild(document.getElementById(data));
 }
-
-/*
-function stopPropagation(id, event) {
-    $(id).on(event, function(e) {
-        e.stopPropagation();
-        return false;
-    });
-}
-stopPropagation('#end2', 'mouseup');*/
