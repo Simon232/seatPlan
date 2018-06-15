@@ -167,10 +167,6 @@
                 DESK
             </div>
         </div>       
-    <!--    
-        <br/>
-        <input type="button" onclick="Clone()" value="Clone desk"/>
-    -->
     
     <!-- Tabs1 itt nem ugrál, de ott marad Name a helyén, ha tabot váltok -->
     <!--    <div class="tab">
@@ -191,12 +187,6 @@
                 <svg></svg>
             </div>
         -->
-
-    <!-- Tabs2, 
-        - kurzorra vált a map! ez jó
-        - ha Tab-et váltunk akkor tünjön el az a map és a nevek is !!
-        Nem jó jelenleg, mert ha lerakok egy nevet és tabot váltok akkor ottmarad az új mapen a név, sőt még ugrál is -->
-    
 
             <div id="tabs">
                 <ul style="display: none">
@@ -254,7 +244,6 @@
     </div>
 </div>
 
-
 <script>
     // target elements with the "draggable" class
     interact('.draggable')
@@ -275,8 +264,6 @@
             onend: $( "*", document.body ).click(function( event ) {
                 var offset = $( this ).offset();
                 event.stopPropagation();
-/*                console.log( this.tagName +
-                    " coords ( " + Math.round(offset.left) + ", " + Math.round(offset.top) + " )" );*/
                 }),
         });
 
@@ -322,8 +309,7 @@ interact('.dropzone').dropzone({
     ondragleave: function (event) {
         // remove the drop feedback style
         event.target.classList.remove('drop-target');
-//        event.relatedTarget.classList.remove('can-drop');
-    // event.relatedTarget.textContent = 'Dragged out';
+
         event.relatedTarget.classList.add('levelUnknown');
         if ( $(event.relatedTarget).hasClass("level0") ){
             event.relatedTarget.classList.remove("level0");
