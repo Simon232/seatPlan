@@ -18,7 +18,8 @@ function cloneFurni(){
 
         var innerHTMLstr = $(this).text();
         var classes = $(this).attr("class");
-        var levelName = classes.split(" ");
+        var splittedClasses = classes.split(" ");
+        var levelName = splittedClasses[splittedClasses.length - 1];
         console.log(levelName);
 
         clone = document.createElement("div"); // true means clone all childNodes and all event handlers
@@ -27,7 +28,7 @@ function cloneFurni(){
             clone.innerHTML = innerHTMLstr;
             clone.style.top = partsOfStr[0];
             clone.style.left = subleftStrPx; 
-            document.getElementById(levelName[3]).after(clone);
+            document.getElementById(levelName).after(clone);
     });    
 }
 setTimeout(cloneFurni, 5000);

@@ -8,7 +8,7 @@ function furnitures(){
     var posY = furnitures.find("seat-pos-y");
     var type = furnitures.find("type");
     var level = furnitures.find("seat-office-part");
-    console.log(level.value()[i]);
+//    console.log(level.value()[i]);
 
     for(var i = 0; i < posX.length; i++){
  //???       newDiv.setAttribute("class","draggable drag-drop");

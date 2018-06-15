@@ -116,7 +116,9 @@
     </script>
     
 </head>
+
 <body>
+
     <div id="myDIV">
         <button id="button0" class="btn active" type="button">Level0</button>
         <button id="button1" class="btn" type="button">Level1</button>
@@ -167,74 +169,54 @@
                 DESK
             </div>
         </div>       
-    
-    <!-- Tabs1 itt nem ugrál, de ott marad Name a helyén, ha tabot váltok -->
-    <!--    <div class="tab">
-            <button class="tablinks" onclick="openFloor(event, 'groundFloor')">Ground Floor</button>
-            <button class="tablinks" onclick="openFloor(event, '1stFloor')">1st Floor</button>
-            <button class="tablinks" onclick="openFloor(event, '2ndFloor')">2nd Floor</button>
+
+        <div id="tabs" class="row">
+            <ul style="display: none">
+                <li id="lev0"><a href="#tabs-0">Ground Floor</a></li>
+                <li id="lev1"><a href="#tabs-1">1st Floor</a></li>
+                <li id="lev2"><a href="#tabs-2">2nd Floor</a></li>
+                <li id="lev3"><a href="#tabs-3">KUKA</a></li>
+                <li id="lev4"><a href="#tabs-4">KUKA</a></li>
+                <li id="lev5"><a href="#tabs-5">KUKA</a></li>
+                <li id="lev6"><a href="#tabs-6">KUKA</a></li>
+            </ul>
+
+            <div id="tabs-0" class="maptab level0">
+                <div id="level0" class="level0 dropzone" ondrop="drop(event)" ondragover="allowDrop(event)">
+                </div>
+            </div>
+            <div id="tabs-1" class="maptab level1">
+                <div id="level1" class="level1 dropzone" ondrop="drop(event)" ondragover="allowDrop(event)">
+                </div>
+            </div>
+            <div id="tabs-2" class="maptab level2">
+                <div id="level2" class="level2 dropzone" ondrop="drop(event)" ondragover="allowDrop(event)">
+                </div>
+            </div>
+            <div id="tabs-3" class="maptab level3">
+                <div id="level3" class="level3 dropzone" ondrop="drop(event)" ondragover="allowDrop(event)">
+                </div>
+            </div>
+            <div id="tabs-4" class="maptab level4">
+                <div id="level4" class="level4 dropzone" ondrop="drop(event)" ondragover="allowDrop(event)">
+                </div>
+            </div>
+            <div id="tabs-5" class="maptab level5">
+                <div id="level5" class="level5 dropzone" ondrop="drop(event)" ondragover="allowDrop(event)">
+                </div>
+            </div>
+            <div id="tabs-6" class="maptab level6">
+                <div id="level6" class="level6 dropzone" ondrop="drop(event)" ondragover="allowDrop(event)">
+                </div>
+            </div>
         </div>
-            <div id="groundFloor" class="tabcontent">
-                <p>map1</p>
-                <svg></svg>
-            </div>
-            <div id="1stFloor" class="tabcontent">
-                <p>map2</p>
-                <svg></svg> 
-            </div>
-            <div id="2ndFloor" class="tabcontent">
-                <p>map3</p>
-                <svg></svg>
-            </div>
-        -->
-
-            <div id="tabs">
-                <ul style="display: none">
-                    <li id="lev0"><a href="#tabs-0">Ground Floor</a></li>
-                    <li id="lev1"><a href="#tabs-1">1st Floor</a></li>
-                    <li id="lev2"><a href="#tabs-2">2nd Floor</a></li>
-                    <li id="lev3"><a href="#tabs-3">KUKA</a></li>
-                    <li id="lev4"><a href="#tabs-4">KUKA</a></li>
-                    <li id="lev5"><a href="#tabs-5">KUKA</a></li>
-                    <li id="lev6"><a href="#tabs-6">KUKA</a></li>
-                </ul>
-
-                <div id="tabs-0" class="maptab level0">
-                    <div id="level0" class="level0 dropzone" ondrop="drop(event)" ondragover="allowDrop(event)">
-                    </div>
-                </div>
-                <div id="tabs-1" class="maptab level1">
-                    <div id="level1" class="level1 dropzone" ondrop="drop(event)" ondragover="allowDrop(event)">
-                    </div>
-                </div>
-                <div id="tabs-2" class="maptab level2">
-                    <div id="level2" class="level2 dropzone" ondrop="drop(event)" ondragover="allowDrop(event)">
-                    </div>
-                </div>
-                <div id="tabs-3" class="maptab level3">
-                    <div id="level3" class="level3 dropzone" ondrop="drop(event)" ondragover="allowDrop(event)">
-                    </div>
-                </div>
-                <div id="tabs-4" class="maptab level4">
-                    <div id="level4" class="level4 dropzone" ondrop="drop(event)" ondragover="allowDrop(event)">
-                    </div>
-                </div>
-                <div id="tabs-5" class="maptab level5">
-                    <div id="level5" class="level5 dropzone" ondrop="drop(event)" ondragover="allowDrop(event)">
-                    </div>
-                </div>
-                <div id="tabs-6" class="maptab level6">
-                    <div id="level6" class="level6 dropzone" ondrop="drop(event)" ondragover="allowDrop(event)">
-                    </div>
-                </div>
-            </div>
-            <script>
-                $( function() {
-                    $( "#tabs" ).tabs({
-                        event: "click"
-                    });
-                });          
-            </script>
+        <script>
+            $( function() {
+                $( "#tabs" ).tabs({
+                    event: "click"
+                });
+            });          
+        </script>
             
     <!-- Name list -->           
     <!--    <div id="nameList" class="name-container">-->
@@ -302,15 +284,13 @@ interact('.dropzone').dropzone({
         } else if ($(event.target).parent().attr("id") == "tabs-6"){
             draggableElement.classList.add("level6"); 
         } 
-        console.log("classes of draggableElement: " + $(event.relatedTarget).attr("class"));
-        var offsets = draggableElement.getBoundingClientRect();
-        console.log( draggableElement.innerHTML + " coords ( " + Math.round(offsets.left) + ", " + Math.round(offsets.top) + " )" );
+ //       console.log("classes of draggableElement: " + $(event.relatedTarget).attr("class"));
     },
     ondragleave: function (event) {
         // remove the drop feedback style
-        event.target.classList.remove('drop-target');
+        event.target.classList.remove("drop-target");
 
-        event.relatedTarget.classList.add('levelUnknown');
+        event.relatedTarget.classList.add("levelUnknown");
         if ( $(event.relatedTarget).hasClass("level0") ){
             event.relatedTarget.classList.remove("level0");
         } else if ( $(event.relatedTarget).hasClass("level1") ){
@@ -330,6 +310,14 @@ interact('.dropzone').dropzone({
     ondrop: function (event) {
         var draggableElement = event.relatedTarget,
             dropzoneElement = event.target;  
+        
+        var classes = draggableElement.className;
+        var splittedClasses = classes.split(" ");
+        var levelName = splittedClasses[splittedClasses.length - 1];
+        console.log(levelName);
+        var offsets = draggableElement.getBoundingClientRect();
+        console.log( draggableElement.innerHTML + " coords ( " + Math.round(offsets.left) + ", " + Math.round(offsets.top) + " )" );
+
 
     },
     ondropdeactivate: function (event) {
