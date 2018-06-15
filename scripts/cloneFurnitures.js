@@ -5,7 +5,6 @@ function cloneFurni(){
 //var furnitures = document.getElementsByClassName("furnitures");
     var furnitures = document.getElementsByClassName(".furnitures");
     var cloneid = 0; 
-
     console.log(furnitures);
 //  console.log(furnitures.id);
 

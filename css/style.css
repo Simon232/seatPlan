@@ -1,4 +1,3 @@
-
 #regeStr {
   border: 2px dashed #666;
   margin: 10px;
@@ -95,7 +94,7 @@ i {
 }
 #level0, #level1, #level2, #level3, #level4, #level5, #level6 {
   width: 99%;
-  height: 700px;
+  height: 1000px;
   position: absolute;
 }
 #level0 {
