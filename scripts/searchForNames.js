@@ -1,5 +1,6 @@
 /* there is a bug because titles are shown incorrectly*/
 
+/*
 function searchForNames() {
     var input, filter, nameList, div, a, i;
     input = document.getElementById("myInput");
@@ -17,4 +18,4 @@ function searchForNames() {
         }
     }
 }
-
+*/

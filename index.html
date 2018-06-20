@@ -9,6 +9,9 @@
    <!--
     <script src="http://code.jquery.com/jquery-1.11.3.js"></script>
     -->
+<!--    
+    <script type="text/javascript" src="data.json"></script>
+-->
     <script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
     <script src="scripts/dragAndDrop.js"></script>
     <script src="scripts/openFloor.js"></script>
@@ -89,7 +92,7 @@
     }); 
     </script>
 
-    <script src="scripts/jquery.ui.rotatable.js"></script>
+    <script src="scripts/external/jquery.ui.rotatable.js"></script>
 
 <!-- For desk rotating -->
     <script type="text/javascript">
@@ -128,26 +131,11 @@
         <button id="button5" class="btn" type="button">Japan</button>
         <button id="button6" class="btn" type="button">KUKA</button>
     </div>
-<!--   
-    <div class="regions" id="container-0">
-        <div class="dragster-region dragster-region--drag-only">
-            <p>Elements cannot be dropped here. They are copied from here.</p>
-            <div class="dragster-block">2.1</div>
-            <div class="dragster-block">2.2</div>
-            <div class="dragster-block">2.3</div>
-        </div>
-
-        <div class="dragster-region">
-            <p>destination</p>
-            <div class="dragster-block">3.1</div>
-            <div class="dragster-block">3.2</div>
-            <div class="dragster-block">3.3</div>
-        </div>
-    </div>
--->
+    <p>Double click on an original furniture to clone it</p>
 
 
 <div class="container-fluid">
+
     <div class="column">  
         
         <div class="row">
@@ -227,6 +215,7 @@
 </div>
 
 <script>
+
     // target elements with the "draggable" class
     interact('.draggable')
         .draggable({
@@ -288,9 +277,11 @@ interact('.dropzone').dropzone({
     },
     ondragleave: function (event) {
         // remove the drop feedback style
-        event.target.classList.remove("drop-target");
+        var draggableElement = event.relatedTarget,
+            dropzoneElement = event.target;
+        dropzoneElement.classList.remove("drop-target");
 
-        event.relatedTarget.classList.add("levelUnknown");
+        draggableElement.classList.add("levelUnknown");
         if ( $(event.relatedTarget).hasClass("level0") ){
             event.relatedTarget.classList.remove("level0");
         } else if ( $(event.relatedTarget).hasClass("level1") ){
@@ -306,20 +297,29 @@ interact('.dropzone').dropzone({
         } else if ( $(event.relatedTarget).hasClass("level6") ){
             event.relatedTarget.classList.remove("level6");
         }         
+
+        var classes = draggableElement.className;
+        var splittedClasses = classes.split(" ");
+        // to get 
+        var levelName = splittedClasses[splittedClasses.length - 1];
+        console.log(levelName);
     },
+
     ondrop: function (event) {
         var draggableElement = event.relatedTarget,
             dropzoneElement = event.target;  
         
         var classes = draggableElement.className;
         var splittedClasses = classes.split(" ");
+        // to get 
         var levelName = splittedClasses[splittedClasses.length - 1];
-        console.log(levelName);
+//        console.log(levelName);
+
         var offsets = draggableElement.getBoundingClientRect();
         console.log( draggableElement.innerHTML + " coords ( " + Math.round(offsets.left) + ", " + Math.round(offsets.top) + " )" );
-
-
+        setTimeout( setEmployeePos(draggableElement.innerHTML, Math.round(offsets.left), Math.round(offsets.top), 1000) );
     },
+
     ondropdeactivate: function (event) {
         // remove active dropzone feedback
         event.target.classList.remove('drop-active');
@@ -347,7 +347,7 @@ interact('.dropzone').dropzone({
 <script src="scripts/employeesLoader.js"></script>
 <script src="scripts/furnituresLoader.js"></script>
 <!-- jsonQ -->
-<script src="scripts/jsonQ.min.js"></script>
+<script src="scripts/external/jsonQ.min.js"></script>
 <!-- search for names -->
 <script src="scripts/searchForNames.js"></script>
 
@@ -365,6 +365,8 @@ interact('.dropzone').dropzone({
 </script>
 
 <script src="scripts/cloneFurnitures.js"></script>
+<script src="scripts/setEmployeePos.js"></script>
+<script src="scripts/updateJsonFile.js"></script>
 
 
 </body>
